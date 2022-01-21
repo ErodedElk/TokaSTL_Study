@@ -4,7 +4,7 @@
 #include <type_traits>
 #include "Alloc.h"
 #include"Construct.h"
-
+#include"CopyFunction.h"
 namespace TokameinE {
 
 	template<class T, class Alloc = Allocator<T>>
@@ -102,10 +102,10 @@ namespace TokameinE {
 			iterator new_start = dataAllocator::allocate(len);
 			iterator new_finish = new_start;
 			try {
-				new_finish = std::uninitialized_copy(start,position,new_start);
+				new_finish = TokameinE::uninitialized_copy(start,position,new_start);
 				construct(new_finish, x);
 				++new_finish;
-				new_finish = std::uninitialized_copy(position, finish, new_finish);
+				new_finish = TokameinE::uninitialized_copy(position, finish, new_finish);
 			}
 			catch(...){
 				destory(new_start,new_finish);
@@ -161,7 +161,7 @@ namespace TokameinE {
 	{
 		if (position + 1 != end())
 		{
-			std::copy(position + 1, finish, position);
+			TokameinE::copy(position + 1, finish, position);
 		}
 		--finish;
 		destory(finish);
@@ -171,7 +171,7 @@ namespace TokameinE {
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator first, iterator last)
 	{
-		iterator i = std::copy(last, finish, first);
+		iterator i = TokameinE::copy(last, finish, first);
 		destory(i, finish);
 		finish = finish - (last - first);
 		return first;
@@ -192,14 +192,14 @@ namespace TokameinE {
 
 	template<class T, class Alloc>
 	vector<T, Alloc>& vector<T, Alloc>::operator=(const vector& v) {
-		if (this != v)
+		if (*this != v)
 		{
 			destroyAllVector();
-			start = dataAllocator::allocate(v.endOfStorage - v.first);
-			finish = std::uninitialized_copy(v.first, v.last, start);
+			start = dataAllocator::allocate(v.endOfStorage - v.start);
+			finish = TokameinE::uninitialized_copy(v.start, v.finish, start);
 			endOfStorage = start+(v.endOfStorage-v.start);
 		}
-		return this;
+		return *this;
 	}
 	template<class T, class Alloc>
 	vector<T, Alloc>& vector<T, Alloc>::operator=(vector&& v) {
