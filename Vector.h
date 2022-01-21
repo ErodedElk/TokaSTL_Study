@@ -71,7 +71,7 @@ namespace TokameinE {
 
 	template<class T, class Alloc>
 	void vector<T,Alloc>::push_back(const value_type& value) {
-		if (finish != endOfStorage)//Ã»Âú
+		if (finish != endOfStorage)//no max
 		{
 			construct(finish, value);
 			++finish;

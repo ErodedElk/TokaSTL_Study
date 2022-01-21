@@ -1,47 +1,33 @@
 #include"Vector.h"
 #include<string>
 #include<cstring>
+using namespace std;
 
-class test {
+class test
+{
+private:
+    int* _ptr;
+    string _id;
 public:
-	int k;
-public:
-	test(char f)
-	{
-		k = f;
-	}
-	~test(){
-		k = 0;
-	}
-	bool operator==(test& v)
-	{
-		return k == v.k;
-	}
-	bool operator!=(test& v)
-	{
-		return !(k == v.k);
-	}
+    test(string id = "-1")
+    {
+        _id = id;
+        _ptr = new int(0x1000);
+        cout << _id << " constructed." << endl;
+    }
 
+    ~test()
+    {
+        cout << _id << " destroyed." << endl;
+        delete _ptr;
+    }
 };
-
-
 
 int main()
 {
-	TokameinE::vector<test> p;
-	int size = p.size();
-	int cap = p.capacity();
+    TokameinE::vector<test> test1;
+    test1.push_back(test("test"));
+    test1.erase(test1.begin());
 
-	for (int i = 0; i < 5; ++i) {
-		p.push_back(test('a'));
-	}
-	TokameinE::vector<test> t;
-	for (int i = 0; i < 5; ++i) {
-		t.push_back(test('b'+i));
-	}
-	p = t;
-	//p.erase(p.begin() + 1);
-	bool x =( p == t);
-	p.swap(t);
-
+    return 0;
 }
