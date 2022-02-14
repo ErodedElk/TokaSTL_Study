@@ -15,6 +15,13 @@ namespace TokameinE {
 	{
 		ptr->~T();
 	}
+
+	template<class T>
+	inline void destory(T ptr)
+	{
+		ptr.~T();
+	}
+
 	template<class T>
 	inline void destory(T* first,T* last)
 	{

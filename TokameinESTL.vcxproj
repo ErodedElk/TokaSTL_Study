@@ -148,6 +148,7 @@
     <ClInclude Include="Construct.h" />
     <ClInclude Include="CopyFunction.h" />
     <ClInclude Include="Iterator.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="TypeTraits.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

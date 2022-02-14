@@ -40,7 +40,8 @@ namespace TokameinE {
 	};
 	template<class T>
 	T* Allocator<T>::allocate() {
-		void* ptr = malloc(sizeof(T));
+		//int sizettt = sizeof(T);
+		T* ptr = (T*)malloc(sizeof(T));
 		if (!ptr)
 		{
 			std::cerr << "out of mem";
@@ -89,22 +90,6 @@ namespace TokameinE {
 		for (; temphead != last; ++temphead)
 			temphead->~T();//test
 	}
-
-
-
-	//template<class T>
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 #endif
